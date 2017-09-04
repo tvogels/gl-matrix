@@ -31,7 +31,7 @@ import * as glMatrix from "./common";
  * @returns {vec2} a new 2D vector
  */
 export function create() {
-  let out = new glMatrix.ARRAY_TYPE(2);
+  const out = new glMatrix.ARRAY_TYPE(2);
   out[0] = 0;
   out[1] = 0;
   return out;
@@ -44,7 +44,7 @@ export function create() {
  * @returns {vec2} a new 2D vector
  */
 export function clone(a) {
-  let out = new glMatrix.ARRAY_TYPE(2);
+  const out = new glMatrix.ARRAY_TYPE(2);
   out[0] = a[0];
   out[1] = a[1];
   return out;
@@ -58,7 +58,7 @@ export function clone(a) {
  * @returns {vec2} a new 2D vector
  */
 export function fromValues(x, y) {
-  let out = new glMatrix.ARRAY_TYPE(2);
+  const out = new glMatrix.ARRAY_TYPE(2);
   out[0] = x;
   out[1] = y;
   return out;
@@ -458,8 +458,8 @@ export function transformMat3(out, a, m) {
  * @returns {vec2} out
  */
 export function transformMat4(out, a, m) {
-  let x = a[0];
-  let y = a[1];
+  const x = a[0];
+  const y = a[1];
   out[0] = m[0] * x + m[4] * y + m[12];
   out[1] = m[1] * x + m[5] * y + m[13];
   return out;
@@ -494,8 +494,8 @@ export function exactEquals(a, b) {
  * @returns {Boolean} True if the vectors are equal, false otherwise.
  */
 export function equals(a, b) {
-  let a0 = a[0], a1 = a[1];
-  let b0 = b[0], b1 = b[1];
+  const a0 = a[0], a1 = a[1];
+  const b0 = b[0], b1 = b[1];
   return (Math.abs(a0 - b0) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
           Math.abs(a1 - b1) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a1), Math.abs(b1)));
 }
@@ -555,10 +555,10 @@ export const sqrLen = squaredLength;
  * @function
  */
 export const forEach = (function() {
-  let vec = create();
+  const vec = create();
 
   return function(a, stride, offset, count, fn, arg) {
-    let i, l;
+    var i, l;
     if(!stride) {
       stride = 2;
     }

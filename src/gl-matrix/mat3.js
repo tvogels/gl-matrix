@@ -31,7 +31,7 @@ import * as glMatrix from "./common";
  * @returns {mat3} a new 3x3 matrix
  */
 export function create() {
-  let out = new glMatrix.ARRAY_TYPE(9);
+  const out = new glMatrix.ARRAY_TYPE(9);
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -71,7 +71,7 @@ export function fromMat4(out, a) {
  * @returns {mat3} a new 3x3 matrix
  */
 export function clone(a) {
-  let out = new glMatrix.ARRAY_TYPE(9);
+  const out = new glMatrix.ARRAY_TYPE(9);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -119,7 +119,7 @@ export function copy(out, a) {
  * @returns {mat3} A new mat3
  */
 export function fromValues(m00, m01, m02, m10, m11, m12, m20, m21, m22) {
-  let out = new glMatrix.ARRAY_TYPE(9);
+  const out = new glMatrix.ARRAY_TYPE(9);
   out[0] = m00;
   out[1] = m01;
   out[2] = m02;
@@ -189,7 +189,7 @@ export function identity(out) {
 export function transpose(out, a) {
   // If we are transposing ourselves we can skip a few steps but have to cache some values
   if (out === a) {
-    let a01 = a[1], a02 = a[2], a12 = a[5];
+    const a01 = a[1], a02 = a[2], a12 = a[5];
     out[1] = a[3];
     out[2] = a[6];
     out[3] = a01;
@@ -219,16 +219,16 @@ export function transpose(out, a) {
  * @returns {mat3} out
  */
 export function invert(out, a) {
-  let a00 = a[0], a01 = a[1], a02 = a[2];
-  let a10 = a[3], a11 = a[4], a12 = a[5];
-  let a20 = a[6], a21 = a[7], a22 = a[8];
+  const a00 = a[0], a01 = a[1], a02 = a[2];
+  const a10 = a[3], a11 = a[4], a12 = a[5];
+  const a20 = a[6], a21 = a[7], a22 = a[8];
 
-  let b01 = a22 * a11 - a12 * a21;
-  let b11 = -a22 * a10 + a12 * a20;
-  let b21 = a21 * a10 - a11 * a20;
+  const b01 = a22 * a11 - a12 * a21;
+  const b11 = -a22 * a10 + a12 * a20;
+  const b21 = a21 * a10 - a11 * a20;
 
   // Calculate the determinant
-  let det = a00 * b01 + a01 * b11 + a02 * b21;
+  const det = a00 * b01 + a01 * b11 + a02 * b21;
 
   if (!det) {
     return null;
@@ -255,9 +255,9 @@ export function invert(out, a) {
  * @returns {mat3} out
  */
 export function adjoint(out, a) {
-  let a00 = a[0], a01 = a[1], a02 = a[2];
-  let a10 = a[3], a11 = a[4], a12 = a[5];
-  let a20 = a[6], a21 = a[7], a22 = a[8];
+  const a00 = a[0], a01 = a[1], a02 = a[2];
+  const a10 = a[3], a11 = a[4], a12 = a[5];
+  const a20 = a[6], a21 = a[7], a22 = a[8];
 
   out[0] = (a11 * a22 - a12 * a21);
   out[1] = (a02 * a21 - a01 * a22);
@@ -278,9 +278,9 @@ export function adjoint(out, a) {
  * @returns {Number} determinant of a
  */
 export function determinant(a) {
-  let a00 = a[0], a01 = a[1], a02 = a[2];
-  let a10 = a[3], a11 = a[4], a12 = a[5];
-  let a20 = a[6], a21 = a[7], a22 = a[8];
+  const a00 = a[0], a01 = a[1], a02 = a[2];
+  const a10 = a[3], a11 = a[4], a12 = a[5];
+  const a20 = a[6], a21 = a[7], a22 = a[8];
 
   return a00 * (a22 * a11 - a12 * a21) + a01 * (-a22 * a10 + a12 * a20) + a02 * (a21 * a10 - a11 * a20);
 }
@@ -294,13 +294,13 @@ export function determinant(a) {
  * @returns {mat3} out
  */
 export function multiply(out, a, b) {
-  let a00 = a[0], a01 = a[1], a02 = a[2];
-  let a10 = a[3], a11 = a[4], a12 = a[5];
-  let a20 = a[6], a21 = a[7], a22 = a[8];
+  const a00 = a[0], a01 = a[1], a02 = a[2];
+  const a10 = a[3], a11 = a[4], a12 = a[5];
+  const a20 = a[6], a21 = a[7], a22 = a[8];
 
-  let b00 = b[0], b01 = b[1], b02 = b[2];
-  let b10 = b[3], b11 = b[4], b12 = b[5];
-  let b20 = b[6], b21 = b[7], b22 = b[8];
+  const b00 = b[0], b01 = b[1], b02 = b[2];
+  const b10 = b[3], b11 = b[4], b12 = b[5];
+  const b20 = b[6], b21 = b[7], b22 = b[8];
 
   out[0] = b00 * a00 + b01 * a10 + b02 * a20;
   out[1] = b00 * a01 + b01 * a11 + b02 * a21;
@@ -325,7 +325,7 @@ export function multiply(out, a, b) {
  * @returns {mat3} out
  */
 export function translate(out, a, v) {
-  let a00 = a[0], a01 = a[1], a02 = a[2],
+  const a00 = a[0], a01 = a[1], a02 = a[2],
     a10 = a[3], a11 = a[4], a12 = a[5],
     a20 = a[6], a21 = a[7], a22 = a[8],
     x = v[0], y = v[1];
@@ -353,7 +353,7 @@ export function translate(out, a, v) {
  * @returns {mat3} out
  */
 export function rotate(out, a, rad) {
-  let a00 = a[0], a01 = a[1], a02 = a[2],
+  const a00 = a[0], a01 = a[1], a02 = a[2],
     a10 = a[3], a11 = a[4], a12 = a[5],
     a20 = a[6], a21 = a[7], a22 = a[8],
 
@@ -383,7 +383,7 @@ export function rotate(out, a, rad) {
  * @returns {mat3} out
  **/
 export function scale(out, a, v) {
-  let x = v[0], y = v[1];
+  const x = v[0], y = v[1];
 
   out[0] = x * a[0];
   out[1] = x * a[1];
@@ -435,7 +435,7 @@ export function fromTranslation(out, v) {
  * @returns {mat3} out
  */
 export function fromRotation(out, rad) {
-  let s = Math.sin(rad), c = Math.cos(rad);
+  const s = Math.sin(rad), c = Math.cos(rad);
 
   out[0] = c;
   out[1] = s;
@@ -508,20 +508,20 @@ export function fromMat2d(out, a) {
 * @returns {mat3} out
 */
 export function fromQuat(out, q) {
-  let x = q[0], y = q[1], z = q[2], w = q[3];
-  let x2 = x + x;
-  let y2 = y + y;
-  let z2 = z + z;
+  const x = q[0], y = q[1], z = q[2], w = q[3];
+  const x2 = x + x;
+  const y2 = y + y;
+  const z2 = z + z;
 
-  let xx = x * x2;
-  let yx = y * x2;
-  let yy = y * y2;
-  let zx = z * x2;
-  let zy = z * y2;
-  let zz = z * z2;
-  let wx = w * x2;
-  let wy = w * y2;
-  let wz = w * z2;
+  const xx = x * x2;
+  const yx = y * x2;
+  const yy = y * y2;
+  const zx = z * x2;
+  const zy = z * y2;
+  const zz = z * z2;
+  const wx = w * x2;
+  const wy = w * y2;
+  const wz = w * z2;
 
   out[0] = 1 - yy - zz;
   out[3] = yx - wz;
@@ -547,26 +547,26 @@ export function fromQuat(out, q) {
 * @returns {mat3} out
 */
 export function normalFromMat4(out, a) {
-  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
-  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
-  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
-  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  const a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  const a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  const a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  const a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
 
-  let b00 = a00 * a11 - a01 * a10;
-  let b01 = a00 * a12 - a02 * a10;
-  let b02 = a00 * a13 - a03 * a10;
-  let b03 = a01 * a12 - a02 * a11;
-  let b04 = a01 * a13 - a03 * a11;
-  let b05 = a02 * a13 - a03 * a12;
-  let b06 = a20 * a31 - a21 * a30;
-  let b07 = a20 * a32 - a22 * a30;
-  let b08 = a20 * a33 - a23 * a30;
-  let b09 = a21 * a32 - a22 * a31;
-  let b10 = a21 * a33 - a23 * a31;
-  let b11 = a22 * a33 - a23 * a32;
+  const b00 = a00 * a11 - a01 * a10;
+  const b01 = a00 * a12 - a02 * a10;
+  const b02 = a00 * a13 - a03 * a10;
+  const b03 = a01 * a12 - a02 * a11;
+  const b04 = a01 * a13 - a03 * a11;
+  const b05 = a02 * a13 - a03 * a12;
+  const b06 = a20 * a31 - a21 * a30;
+  const b07 = a20 * a32 - a22 * a30;
+  const b08 = a20 * a33 - a23 * a30;
+  const b09 = a21 * a32 - a22 * a31;
+  const b10 = a21 * a33 - a23 * a31;
+  const b11 = a22 * a33 - a23 * a32;
 
   // Calculate the determinant
-  let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+  const det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 
   if (!det) {
     return null;
@@ -739,8 +739,8 @@ export function exactEquals(a, b) {
  * @returns {Boolean} True if the matrices are equal, false otherwise.
  */
 export function equals(a, b) {
-  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7], a8 = a[8];
-  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7], b8 = b[8];
+  const a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7], a8 = a[8];
+  const b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7], b8 = b[8];
   return (Math.abs(a0 - b0) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
           Math.abs(a1 - b1) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
           Math.abs(a2 - b2) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&

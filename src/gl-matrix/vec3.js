@@ -31,7 +31,7 @@ import * as glMatrix from "./common";
  * @returns {vec3} a new 3D vector
  */
 export function create() {
-  let out = new glMatrix.ARRAY_TYPE(3);
+  const out = new glMatrix.ARRAY_TYPE(3);
   out[0] = 0;
   out[1] = 0;
   out[2] = 0;
@@ -59,9 +59,9 @@ export function clone(a) {
  * @returns {Number} length of a
  */
 export function length(a) {
-  let x = a[0];
-  let y = a[1];
-  let z = a[2];
+  const x = a[0];
+  const y = a[1];
+  const z = a[2];
   return Math.sqrt(x*x + y*y + z*z);
 }
 
@@ -74,7 +74,7 @@ export function length(a) {
  * @returns {vec3} a new 3D vector
  */
 export function fromValues(x, y, z) {
-  let out = new glMatrix.ARRAY_TYPE(3);
+  const out = new glMatrix.ARRAY_TYPE(3);
   out[0] = x;
   out[1] = y;
   out[2] = z;
@@ -282,9 +282,9 @@ export function scaleAndAdd(out, a, b, scale) {
  * @returns {Number} distance between a and b
  */
 export function distance(a, b) {
-  let x = b[0] - a[0];
-  let y = b[1] - a[1];
-  let z = b[2] - a[2];
+  const x = b[0] - a[0];
+  const y = b[1] - a[1];
+  const z = b[2] - a[2];
   return Math.sqrt(x*x + y*y + z*z);
 }
 
@@ -296,9 +296,9 @@ export function distance(a, b) {
  * @returns {Number} squared distance between a and b
  */
 export function squaredDistance(a, b) {
-  let x = b[0] - a[0];
-  let y = b[1] - a[1];
-  let z = b[2] - a[2];
+  const x = b[0] - a[0];
+  const y = b[1] - a[1];
+  const z = b[2] - a[2];
   return x*x + y*y + z*z;
 }
 
@@ -309,9 +309,9 @@ export function squaredDistance(a, b) {
  * @returns {Number} squared length of a
  */
 export function squaredLength(a) {
-  let x = a[0];
-  let y = a[1];
-  let z = a[2];
+  const x = a[0];
+  const y = a[1];
+  const z = a[2];
   return x*x + y*y + z*z;
 }
 
@@ -351,10 +351,10 @@ export function inverse(out, a) {
  * @returns {vec3} out
  */
 export function normalize(out, a) {
-  let x = a[0];
-  let y = a[1];
-  let z = a[2];
-  let len = x*x + y*y + z*z;
+  const x = a[0];
+  const y = a[1];
+  const z = a[2];
+  const len = x*x + y*y + z*z;
   if (len > 0) {
     //TODO: evaluate use of glm_invsqrt here?
     len = 1 / Math.sqrt(len);
@@ -385,8 +385,8 @@ export function dot(a, b) {
  * @returns {vec3} out
  */
 export function cross(out, a, b) {
-  let ax = a[0], ay = a[1], az = a[2];
-  let bx = b[0], by = b[1], bz = b[2];
+  const ax = a[0], ay = a[1], az = a[2];
+  const bx = b[0], by = b[1], bz = b[2];
 
   out[0] = ay * bz - az * by;
   out[1] = az * bx - ax * bz;
@@ -404,9 +404,9 @@ export function cross(out, a, b) {
  * @returns {vec3} out
  */
 export function lerp(out, a, b, t) {
-  let ax = a[0];
-  let ay = a[1];
-  let az = a[2];
+  const ax = a[0];
+  const ay = a[1];
+  const az = a[2];
   out[0] = ax + t * (b[0] - ax);
   out[1] = ay + t * (b[1] - ay);
   out[2] = az + t * (b[2] - az);
@@ -425,11 +425,11 @@ export function lerp(out, a, b, t) {
  * @returns {vec3} out
  */
 export function hermite(out, a, b, c, d, t) {
-  let factorTimes2 = t * t;
-  let factor1 = factorTimes2 * (2 * t - 3) + 1;
-  let factor2 = factorTimes2 * (t - 2) + t;
-  let factor3 = factorTimes2 * (t - 1);
-  let factor4 = factorTimes2 * (3 - 2 * t);
+  const factorTimes2 = t * t;
+  const factor1 = factorTimes2 * (2 * t - 3) + 1;
+  const factor2 = factorTimes2 * (t - 2) + t;
+  const factor3 = factorTimes2 * (t - 1);
+  const factor4 = factorTimes2 * (3 - 2 * t);
 
   out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
   out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
@@ -450,13 +450,13 @@ export function hermite(out, a, b, c, d, t) {
  * @returns {vec3} out
  */
 export function bezier(out, a, b, c, d, t) {
-  let inverseFactor = 1 - t;
-  let inverseFactorTimesTwo = inverseFactor * inverseFactor;
-  let factorTimes2 = t * t;
-  let factor1 = inverseFactorTimesTwo * inverseFactor;
-  let factor2 = 3 * t * inverseFactorTimesTwo;
-  let factor3 = 3 * factorTimes2 * inverseFactor;
-  let factor4 = factorTimes2 * t;
+  const inverseFactor = 1 - t;
+  const inverseFactorTimesTwo = inverseFactor * inverseFactor;
+  const factorTimes2 = t * t;
+  const factor1 = inverseFactorTimesTwo * inverseFactor;
+  const factor2 = 3 * t * inverseFactorTimesTwo;
+  const factor3 = 3 * factorTimes2 * inverseFactor;
+  const factor4 = factorTimes2 * t;
 
   out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
   out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
@@ -475,9 +475,9 @@ export function bezier(out, a, b, c, d, t) {
 export function random(out, scale) {
   scale = scale || 1.0;
 
-  let r = glMatrix.RANDOM() * 2.0 * Math.PI;
-  let z = (glMatrix.RANDOM() * 2.0) - 1.0;
-  let zScale = Math.sqrt(1.0-z*z) * scale;
+  const r = glMatrix.RANDOM() * 2.0 * Math.PI;
+  const z = (glMatrix.RANDOM() * 2.0) - 1.0;
+  const zScale = Math.sqrt(1.0-z*z) * scale;
 
   out[0] = Math.cos(r) * zScale;
   out[1] = Math.sin(r) * zScale;
@@ -495,8 +495,8 @@ export function random(out, scale) {
  * @returns {vec3} out
  */
 export function transformMat4(out, a, m) {
-  let x = a[0], y = a[1], z = a[2];
-  let w = m[3] * x + m[7] * y + m[11] * z + m[15];
+  const x = a[0], y = a[1], z = a[2];
+  const w = m[3] * x + m[7] * y + m[11] * z + m[15];
   w = w || 1.0;
   out[0] = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
   out[1] = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
@@ -513,7 +513,7 @@ export function transformMat4(out, a, m) {
  * @returns {vec3} out
  */
 export function transformMat3(out, a, m) {
-  let x = a[0], y = a[1], z = a[2];
+  const x = a[0], y = a[1], z = a[2];
   out[0] = x * m[0] + y * m[3] + z * m[6];
   out[1] = x * m[1] + y * m[4] + z * m[7];
   out[2] = x * m[2] + y * m[5] + z * m[8];
@@ -531,14 +531,14 @@ export function transformMat3(out, a, m) {
 export function transformQuat(out, a, q) {
   // benchmarks: http://jsperf.com/quaternion-transform-vec3-implementations
 
-  let x = a[0], y = a[1], z = a[2];
-  let qx = q[0], qy = q[1], qz = q[2], qw = q[3];
+  const x = a[0], y = a[1], z = a[2];
+  const qx = q[0], qy = q[1], qz = q[2], qw = q[3];
 
   // calculate quat * vec
-  let ix = qw * x + qy * z - qz * y;
-  let iy = qw * y + qz * x - qx * z;
-  let iz = qw * z + qx * y - qy * x;
-  let iw = -qx * x - qy * y - qz * z;
+  const ix = qw * x + qy * z - qz * y;
+  const iy = qw * y + qz * x - qx * z;
+  const iz = qw * z + qx * y - qy * x;
+  const iw = -qx * x - qy * y - qz * z;
 
   // calculate result * inverse quat
   out[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
@@ -556,7 +556,7 @@ export function transformQuat(out, a, q) {
  * @returns {vec3} out
  */
 export function rotateX(out, a, b, c){
-  let p = [], r=[];
+  const p = [], r=[];
   //Translate point to the origin
   p[0] = a[0] - b[0];
   p[1] = a[1] - b[1];
@@ -584,7 +584,7 @@ export function rotateX(out, a, b, c){
  * @returns {vec3} out
  */
 export function rotateY(out, a, b, c){
-  let p = [], r=[];
+  const p = [], r=[];
   //Translate point to the origin
   p[0] = a[0] - b[0];
   p[1] = a[1] - b[1];
@@ -612,7 +612,7 @@ export function rotateY(out, a, b, c){
  * @returns {vec3} out
  */
 export function rotateZ(out, a, b, c){
-  let p = [], r=[];
+  const p = [], r=[];
   //Translate point to the origin
   p[0] = a[0] - b[0];
   p[1] = a[1] - b[1];
@@ -638,13 +638,13 @@ export function rotateZ(out, a, b, c){
  * @returns {Number} The angle in radians
  */
 export function angle(a, b) {
-  let tempA = fromValues(a[0], a[1], a[2]);
-  let tempB = fromValues(b[0], b[1], b[2]);
+  const tempA = fromValues(a[0], a[1], a[2]);
+  const tempB = fromValues(b[0], b[1], b[2]);
 
   normalize(tempA, tempA);
   normalize(tempB, tempB);
 
-  let cosine = dot(tempA, tempB);
+  const cosine = dot(tempA, tempB);
 
   if(cosine > 1.0) {
     return 0;
@@ -685,8 +685,8 @@ export function exactEquals(a, b) {
  * @returns {Boolean} True if the vectors are equal, false otherwise.
  */
 export function equals(a, b) {
-  let a0 = a[0], a1 = a[1], a2 = a[2];
-  let b0 = b[0], b1 = b[1], b2 = b[2];
+  const a0 = a[0], a1 = a[1], a2 = a[2];
+  const b0 = b[0], b1 = b[1], b2 = b[2];
   return (Math.abs(a0 - b0) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
           Math.abs(a1 - b1) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
           Math.abs(a2 - b2) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a2), Math.abs(b2)));
@@ -747,10 +747,10 @@ export const sqrLen = squaredLength;
  * @function
  */
 export const forEach = (function() {
-  let vec = create();
+  const vec = create();
 
   return function(a, stride, offset, count, fn, arg) {
-    let i, l;
+    var i, l;
     if(!stride) {
       stride = 3;
     }

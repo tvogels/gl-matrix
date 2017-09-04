@@ -34,7 +34,7 @@ import * as vec4 from "./vec4"
  * @returns {quat} a new quaternion
  */
 export function create() {
-  let out = new glMatrix.ARRAY_TYPE(4);
+  const out = new glMatrix.ARRAY_TYPE(4);
   out[0] = 0;
   out[1] = 0;
   out[2] = 0;
@@ -67,7 +67,7 @@ export function identity(out) {
  **/
 export function setAxisAngle(out, axis, rad) {
   rad = rad * 0.5;
-  let s = Math.sin(rad);
+  const s = Math.sin(rad);
   out[0] = s * axis[0];
   out[1] = s * axis[1];
   out[2] = s * axis[2];
@@ -89,8 +89,8 @@ export function setAxisAngle(out, axis, rad) {
  * @return {Number}     Angle, in radians, of the rotation
  */
 export function getAxisAngle(out_axis, q) {
-  let rad = Math.acos(q[3]) * 2.0;
-  let s = Math.sin(rad / 2.0);
+  const rad = Math.acos(q[3]) * 2.0;
+  const s = Math.sin(rad / 2.0);
   if (s != 0.0) {
     out_axis[0] = q[0] / s;
     out_axis[1] = q[1] / s;
@@ -113,8 +113,8 @@ export function getAxisAngle(out_axis, q) {
  * @returns {quat} out
  */
 export function multiply(out, a, b) {
-  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
-  let bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  const ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  const bx = b[0], by = b[1], bz = b[2], bw = b[3];
 
   out[0] = ax * bw + aw * bx + ay * bz - az * by;
   out[1] = ay * bw + aw * by + az * bx - ax * bz;
@@ -134,8 +134,8 @@ export function multiply(out, a, b) {
 export function rotateX(out, a, rad) {
   rad *= 0.5;
 
-  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
-  let bx = Math.sin(rad), bw = Math.cos(rad);
+  const ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  const bx = Math.sin(rad), bw = Math.cos(rad);
 
   out[0] = ax * bw + aw * bx;
   out[1] = ay * bw + az * bx;
@@ -155,8 +155,8 @@ export function rotateX(out, a, rad) {
 export function rotateY(out, a, rad) {
   rad *= 0.5;
 
-  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
-  let by = Math.sin(rad), bw = Math.cos(rad);
+  const ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  const by = Math.sin(rad), bw = Math.cos(rad);
 
   out[0] = ax * bw - az * by;
   out[1] = ay * bw + aw * by;
@@ -176,8 +176,8 @@ export function rotateY(out, a, rad) {
 export function rotateZ(out, a, rad) {
   rad *= 0.5;
 
-  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
-  let bz = Math.sin(rad), bw = Math.cos(rad);
+  const ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  const bz = Math.sin(rad), bw = Math.cos(rad);
 
   out[0] = ax * bw + ay * bz;
   out[1] = ay * bw - ax * bz;
@@ -196,7 +196,7 @@ export function rotateZ(out, a, rad) {
  * @returns {quat} out
  */
 export function calculateW(out, a) {
-  let x = a[0], y = a[1], z = a[2];
+  const x = a[0], y = a[1], z = a[2];
 
   out[0] = x;
   out[1] = y;
@@ -217,10 +217,10 @@ export function calculateW(out, a) {
 export function slerp(out, a, b, t) {
   // benchmarks:
   //    http://jsperf.com/quaternion-slerp-implementations
-  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
-  let bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  const ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bx = b[0], by = b[1], bz = b[2], bw = b[3];
 
-  let omega, cosom, sinom, scale0, scale1;
+  var omega, cosom, sinom, scale0, scale1;
 
   // calc cosine
   cosom = ax * bx + ay * by + az * bz + aw * bw;
@@ -262,9 +262,9 @@ export function slerp(out, a, b, t) {
  * @returns {quat} out
  */
 export function invert(out, a) {
-  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
-  let dot = a0*a0 + a1*a1 + a2*a2 + a3*a3;
-  let invDot = dot ? 1.0/dot : 0;
+  const a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  const dot = a0*a0 + a1*a1 + a2*a2 + a3*a3;
+  const invDot = dot ? 1.0/dot : 0;
 
   // TODO: Would be faster to return [0,0,0,0] immediately if dot == 0
 
@@ -305,8 +305,8 @@ export function conjugate(out, a) {
 export function fromMat3(out, m) {
   // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
   // article "Quaternion Calculus and Fast Animation".
-  let fTrace = m[0] + m[4] + m[8];
-  let fRoot;
+  const fTrace = m[0] + m[4] + m[8];
+  var fRoot;
 
   if ( fTrace > 0.0 ) {
     // |w| > 1/2, may as well choose w > 1/2
@@ -318,13 +318,13 @@ export function fromMat3(out, m) {
     out[2] = (m[1]-m[3])*fRoot;
   } else {
     // |w| <= 1/2
-    let i = 0;
+    var i = 0;
     if ( m[4] > m[0] )
       i = 1;
     if ( m[8] > m[i*3+i] )
       i = 2;
-    let j = (i+1)%3;
-    let k = (i+2)%3;
+    var j = (i+1)%3;
+    var k = (i+2)%3;
 
     fRoot = Math.sqrt(m[i*3+i]-m[j*3+j]-m[k*3+k] + 1.0);
     out[i] = 0.5 * fRoot;
@@ -348,17 +348,17 @@ export function fromMat3(out, m) {
  * @function
  */
 export function fromEuler(out, x, y, z) {
-    let halfToRad = 0.5 * Math.PI / 180.0;
+    const halfToRad = 0.5 * Math.PI / 180.0;
     x *= halfToRad;
     y *= halfToRad;
     z *= halfToRad;
 
-    let sx = Math.sin(x);
-    let cx = Math.cos(x);
-    let sy = Math.sin(y);
-    let cy = Math.cos(y);
-    let sz = Math.sin(z);
-    let cz = Math.cos(z);
+    const sx = Math.sin(x);
+    const cx = Math.cos(x);
+    const sy = Math.sin(y);
+    const cy = Math.cos(y);
+    const sz = Math.sin(z);
+    const cz = Math.cos(z);
 
     out[0] = sx * cy * cz - cx * sy * sz;
     out[1] = cx * sy * cz + sx * cy * sz;
@@ -541,12 +541,12 @@ export const equals = vec4.equals;
  * @returns {quat} out
  */
 export const rotationTo = (function() {
-  let tmpvec3 = vec3.create();
-  let xUnitVec3 = vec3.fromValues(1,0,0);
-  let yUnitVec3 = vec3.fromValues(0,1,0);
+  const tmpvec3 = vec3.create();
+  const xUnitVec3 = vec3.fromValues(1,0,0);
+  const yUnitVec3 = vec3.fromValues(0,1,0);
 
   return function(out, a, b) {
-    let dot = vec3.dot(a, b);
+    const dot = vec3.dot(a, b);
     if (dot < -0.999999) {
       vec3.cross(tmpvec3, xUnitVec3, a);
       if (vec3.len(tmpvec3) < 0.000001)
@@ -583,8 +583,8 @@ export const rotationTo = (function() {
  * @returns {quat} out
  */
 export const sqlerp = (function () {
-  let temp1 = create();
-  let temp2 = create();
+  const temp1 = create();
+  const temp2 = create();
 
   return function (out, a, b, c, d, t) {
     slerp(temp1, a, d, t);
@@ -606,7 +606,7 @@ export const sqlerp = (function () {
  * @returns {quat} out
  */
 export const setAxes = (function() {
-  let matr = mat3.create();
+  const matr = mat3.create();
 
   return function(out, view, right, up) {
     matr[0] = right[0];
